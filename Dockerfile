@@ -1,21 +1,20 @@
-FROM openjdk:18-jdk
-LABEL version="1.0"
+# Download Java
+ARG JAVA_VERSION="18-jdk"
+FROM openjdk:${JAVA_VERSION}
 
-ARG PROJECT_NAME="todo"
-ARG PROJECT_VERSION="1.0.0"
-ARG JAR_FILE="${PROJECT_NAME}-${PROJECT_VERSION}.jar"
-ARG APP_HOME=/opt/deployment
-ARG PROJECT_HOME=${APP_HOME}/${PROJECT_NAME}
+LABEL versioin="1.0.0"
 
-COPY target/${JAR_FILE} ${PROJECT_HOME}/${JAR_FILE}
+ENV PROJECT_NAME="todo-api"
 
-# Change working directory
-WORKDIR ${PROJECT_HOME}
+ARG APP_HOME="/opt/deployment/"
 
-# Expose Port
+# Copy the jar from local to image
+RUN mkdir ${APP_HOME}
+COPY target/todo-1.0.0.jar ${APP_HOME}/todo-1.0.0.jar
+
+WORKDIR ${APP_HOME}
+
 EXPOSE 8080
 
-# Entrypoint
+# Run application with java -jar
 ENTRYPOINT ["java", "-jar", "todo-1.0.0.jar"]
-
-# ENTRYPOINT [ "sh", "-c", "java -jar $JAR_FILE" ]

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class TestController {
 
-    @GetMapping("/slowApi")
+    @GetMapping("/slow")
     public String timeConsumingAPI(@RequestParam(value = "delay", defaultValue = "0") Integer delay)
             throws InterruptedException {
         if (delay == 0) {

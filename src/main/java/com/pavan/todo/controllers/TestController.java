@@ -9,13 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.micrometer.core.annotation.Timed;
+
 @RestController
 @RequestMapping("/api/test")
 @CrossOrigin
 public class TestController {
 
+    @Timed(value = "slow.request", description = "Slow API Response Time", histogram = true, percentiles = { 0.95,
+            0.99 })
     @GetMapping("/slow")
-    public String timeConsumingAPI(@RequestParam(value = "delay", defaultValue = "0") Integer delay)
+    public String slowAPI(@RequestParam(value = "delay", defaultValue = "0") Integer delay)
             throws InterruptedException {
         if (delay == 0) {
             Random random = new Random();

@@ -70,7 +70,6 @@ public class TodoService {
 
     @Scheduled(fixedRate = 3000)
     public void updatePendingTodoMetrics() {
-        System.out.println("(((((((((())))))))))");
         long pendingTodoCount = todoRepository.countByCompleted(false);
         Tags tags = Tags.of("status", "pending");
         meterRegistry.gauge("todo.pending.count", tags, pendingTodoCount);

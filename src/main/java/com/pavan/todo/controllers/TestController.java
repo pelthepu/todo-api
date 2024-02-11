@@ -16,7 +16,7 @@ import io.micrometer.core.annotation.Timed;
 @CrossOrigin
 public class TestController {
 
-    @Timed(value = "slow.request", description = "Slow API Response Time", histogram = true, percentiles = { 0.95,
+    @Timed(value = "slow.request", description = "Slow API Response Time", histogram = true, percentiles = { 0.5, 0.95,
             0.99 })
     @GetMapping("/slow")
     public String slowAPI(@RequestParam(value = "delay", defaultValue = "0") Integer delay)
